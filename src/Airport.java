@@ -8,22 +8,28 @@ public class Airport implements Arrive, Depart {
         this.location = airportLoc;
         this.type = airportType;
     }
-    private String getName(){
+
+    private String getName() {
         return this.name;
     }
-    private String getLocation(){
+
+    private String getLocation() {
         return this.location;
     }
-    private String getType(){
+
+    private String getType() {
         return this.type;
     }
-    private void setName(){
+
+    private void setName() {
         this.name = name;
     }
-    private void setLocation(){
+
+    private void setLocation() {
         this.location = location;
     }
-    private void setType(){
+
+    private void setType() {
         this.type = type;
     }
 
@@ -31,8 +37,14 @@ public class Airport implements Arrive, Depart {
     public void depart() {
         System.out.println("I departed on a " + depPlane);
     }
+
     @Override
     public void arrive() {
         System.out.println("I arrived on a " + arrPlane);
+    }
+
+    @Override
+    public String toString() {
+        return "Airport name: " + this.name + "location: " + this.location + "airport type: " + this.type;
     }
 }

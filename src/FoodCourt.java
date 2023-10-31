@@ -1,4 +1,4 @@
-public class FoodCourt {
+public class FoodCourt implements Eat {
     private String foodType;
     private String restaurantName;
     private float price;
@@ -7,5 +7,34 @@ public class FoodCourt {
         this.foodType = food;
         this.restaurantName = place;
         this.price = fPrice;
+    }
+
+    public String getFoodType() {
+        return foodType;
+    }
+
+    public String getRestaurantName() {
+        return restaurantName;
+    }
+
+    public float getPrice() {
+        return price;
+    }
+
+    public void setFoodType(String foodType) {
+        this.foodType = foodType;
+    }
+
+    public void setRestaurantName(String restaurantName) {
+        this.restaurantName = restaurantName;
+    }
+
+    public void setPrice(float price) {
+        this.price = price;
+    }
+
+    @Override
+    public void eat() {
+        System.out.println("Im hungry for" + this.foodType + "from" + this.restaurantName + "and the price is" + this.price);
     }
 }

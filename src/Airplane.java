@@ -1,10 +1,41 @@
-public class Airplane extends Passenger {
+public class Airplane extends Passenger implements Board {
     private int capacity;
     private int tailNumber;
 
-    public Airplane(int capacity, int tailNumber) {
-        super(false, false, true)
+    public Airplane(int capacity, int tailNumber, boolean assistance, boolean guardian, boolean security) {
+        super(assistance, guardian, security)
         this.capacity = capacity;
         this.tailNumber = tailNumber;
+    }
+
+    public int getCapacity() {
+        return capacity;
+    }
+
+    public int getTailNumber() {
+        return tailNumber;
+    }
+
+    public void setCapacity(int capacity) {
+        this.capacity = capacity;
+    }
+
+    public void setTailNumber(int tailNumber) {
+        this.tailNumber = tailNumber;
+    }
+
+    @Override
+    public void boardingTime() {
+        System.out.println("Plane boards in 30 minutes");
+    }
+
+    @Override
+    public void boardingStatus() {
+        System.out.println("Plane has been boarded.");
+    }
+
+    @Override
+    public String toString() {
+        return "this planes capacity is:" + this.capacity + "tail number: " + this.tailNumber;
     }
 }

@@ -4,38 +4,47 @@ public class Airline {
     private String departure;
     private float price;
 
-    public Airline(String airlineCompany, String depCity, String arrCity, float ticketPrice){
+    public Airline(String airlineCompany, String depCity, String arrCity, float ticketPrice) {
         this.company = airlineCompany;
         this.arrival = arrCity;
         this.departure = depCity;
         this.price = ticketPrice;
     }
-    private String getCompany(){
+
+    private String getCompany() {
         return this.company;
     }
-    private String getArrival(){
+
+    private String getArrival() {
         return this.arrival;
     }
-    private String getDeparture(){
+
+    private String getDeparture() {
         return this.departure;
     }
-    private float getPrice(){
+
+    private float getPrice() {
         return this.price;
     }
-    void setCompany(String company){
+
+    public void setCompany(String company) {
         this.company = company;
     }
-    void setArrival(String arrival){
+
+    public void setArrival(String arrival) {
         this.arrival = arrival;
     }
-    void setDeparture(String departure){
+
+    public void setDeparture(String departure) {
         this.departure = departure;
     }
-    void setPrice(float price){
+
+    public void setPrice(float price) {
         this.price = price;
     }
 
-    public String toString(){
-        return "this Airline is " + this.company;
+    @Override
+    public String toString() {
+        return "The Airline is " + this.company;
     }
 }
