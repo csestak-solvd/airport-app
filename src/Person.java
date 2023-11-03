@@ -1,10 +1,11 @@
+import java.util.Date;
 public class Person {
     private Date bday;
     private String name;
     private String sex;
 
     public Person(Date bday, String name, String sex) {
-        this.age = age;
+        this.bday = bday;
         this.name = name;
         this.sex = sex;
     }
@@ -17,8 +18,8 @@ public class Person {
         return sex;
     }
 
-    public int getAge() {
-        return age;
+    public Date getBday() {
+        return bday;
     }
 
     public void setName(String name) {
@@ -29,12 +30,12 @@ public class Person {
         this.sex = sex;
     }
 
-    public void setAge(int age) {
-        this.age = age;
+    public void setBday(Date bday) {
+        this.bday = bday;
     }
 
     @Override
     public String toString() {
-        return "Person: [Name: " + name + ", Age: " + age + ", Sex: " + sex + "]";
+        return "Person: [Name: " + name + ", Age: " + bday + ", Sex: " + sex + "]";
     }
 }

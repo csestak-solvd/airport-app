@@ -1,10 +1,12 @@
+import airport.FoodCourt;
+import java.util.Date;
 public class Passenger extends Person implements Eat {
     private boolean assistance;
     private boolean guardian;
     private boolean security;
 
-    public Passenger(int age, String name, String sex, boolean assistance, boolean guardian, boolean security) {
-        super(age, name, sex);
+    public Passenger(Date bday, String name, String sex, boolean assistance, boolean guardian, boolean security) {
+        super(bday, name, sex);
         this.assistance = assistance;
         this.guardian = guardian;
         this.security = security;
@@ -38,7 +40,7 @@ public class Passenger extends Person implements Eat {
 
     @Override
     public void eat() {
-        System.out.println("Im hungry for" + this.foodType + "from" + this.restaurantName + "and the price is" + this.price);
+        System.out.println("Im hungry for" + FoodCourt.foodType + "from" + FoodCourt.restaurantName + "and the price is" + FoodCourt.price);
     }
     @Override
     public String toString() {
