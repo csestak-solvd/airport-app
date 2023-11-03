@@ -1,4 +1,10 @@
-public class Airplane implements Board, Arrive, Depart {
+package airport;
+
+import interfaces.IArrive;
+import interfaces.IBoard;
+import interfaces.IDepart;
+
+public class Airplane implements IBoard, IArrive, IDepart {
     private int capacity;
     private int tailNumber;
     private Flight flight;
@@ -36,12 +42,12 @@ public class Airplane implements Board, Arrive, Depart {
 
     @Override
     public void depart() {
-        System.out.println("I departed on a " + depPlane);
+        System.out.println("I departed on a " + IDepart.depPlane);
     }
 
     @Override
     public void arrive() {
-        System.out.println("I arrived on a " + arrPlane);
+        System.out.println("I arrived on a " + IArrive.arrPlane);
     }
 
     @Override

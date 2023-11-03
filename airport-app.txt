@@ -1,7 +1,0 @@
-new task
-make new repo
-make a second branch and work throug that.. push code through pull requests.
-10-15 classes for topic
-heirarchy
-create class diagram using draw.io
-implement classes with methods to string and hashcodes

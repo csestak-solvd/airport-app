@@ -1,3 +1,5 @@
+package airport;
+
 public class Airline {
     private String company;
 
@@ -16,6 +18,6 @@ public class Airline {
 
     @Override
     public String toString() {
-        return "The Airline is " + this.company;
+        return "The airport.Airline is " + this.company;
     }
 }

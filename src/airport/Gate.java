@@ -1,3 +1,5 @@
+package airport;
+
 public class Gate {
     private String gateNumber;
     private String gateStatus;

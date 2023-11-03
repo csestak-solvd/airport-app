@@ -1,3 +1,5 @@
+package airport;
+
 public class Airport {
     private String name;
     private String location;
@@ -36,6 +38,6 @@ public class Airport {
 
     @Override
     public String toString() {
-        return "Airport name: " + this.name + "location: " + this.location + "airport type: " + this.type;
+        return "airport.Airport name: " + this.name + "location: " + this.location + "airport type: " + this.type;
     }
 }

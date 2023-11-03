@@ -1,10 +1,13 @@
+package people;
+import java.time.LocalDate;
+
 public class Person {
-    private Date bday;
+    private LocalDate bday;
     private String name;
     private String sex;
 
-    public Person(Date bday, String name, String sex) {
-        this.age = age;
+    public Person(LocalDate bday, String name, String sex) {
+        this.bday = bday;
         this.name = name;
         this.sex = sex;
     }
@@ -17,8 +20,8 @@ public class Person {
         return sex;
     }
 
-    public int getAge() {
-        return age;
+    public LocalDate getMyDate() {
+        return bday;
     }
 
     public void setName(String name) {
@@ -29,12 +32,12 @@ public class Person {
         this.sex = sex;
     }
 
-    public void setAge(int age) {
-        this.age = age;
+    public void setMyDate(LocalDate date) {
+        bday = date;
     }
 
     @Override
     public String toString() {
-        return "Person: [Name: " + name + ", Age: " + age + ", Sex: " + sex + "]";
+        return "Person: [Name: " + name + ", bday: " + bday + ", Sex: " + sex + "]";
     }
 }

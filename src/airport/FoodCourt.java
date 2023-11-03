@@ -1,7 +1,9 @@
-public class FoodCourt implements Eat {
-    private String foodType;
-    private String restaurantName;
-    private float price;
+package airport;
+
+public class FoodCourt {
+    public static String foodType;
+    public static String restaurantName;
+    public static float price;
 
     public FoodCourt(String food, String place, float fPrice) {
         this.foodType = food;
