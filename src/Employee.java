@@ -1,9 +1,11 @@
+import java.util.Date;
+
 public class Employee extends Person {
     private String position;
     private String working;
 
-    public Employee(int age, String name, String sex,String position, String working) {
-        super(age, name, sex);
+    public Employee(Date bday, String name, String sex,String position, String working) {
+        super(bday, name, sex);
         this.position = position;
         this.working = working;
     }
