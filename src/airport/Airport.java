@@ -1,6 +1,7 @@
 package airport;
 
 public class Airport {
+
     private String name;
     private String location;
     private String type;

@@ -1,6 +1,7 @@
 package airport;
 
 public class Luggage {
+    
     int count;
     int weight;
 

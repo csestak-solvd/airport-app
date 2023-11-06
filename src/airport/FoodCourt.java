@@ -1,6 +1,7 @@
 package airport;
 
 public class FoodCourt {
+    
     public static String foodType;
     public static String restaurantName;
     public static double price;

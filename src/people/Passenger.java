@@ -6,6 +6,7 @@ import airport.FoodCourt;
 import java.time.LocalDate;
 
 public class Passenger extends Person implements IEat {
+    
     private boolean assistance;
     private boolean guardian;
     private boolean security;

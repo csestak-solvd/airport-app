@@ -1,6 +1,7 @@
 package airport;
 
 public class Restroom {
+    
     private String sex;
     private boolean clean;
     private boolean available;

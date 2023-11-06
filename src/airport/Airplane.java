@@ -4,14 +4,14 @@ import interfaces.IArrive;
 import interfaces.IBoard;
 import interfaces.IDepart;
 
-public class Airplane implements IBoard, IArrive, IDepart {
+public class Airplane implements IPlane {
 
     private int capacity;
     private int tailNumber;
     private Flight flight;
 
     public Airplane(int capacity, int tailNumber) {
-        
+
         this.capacity = capacity;
         this.tailNumber = tailNumber;
     }

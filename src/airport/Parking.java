@@ -1,6 +1,7 @@
 package airport;
 
 public class Parking {
+    
     private String lot;
     private int stall;
     private int price;

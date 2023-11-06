@@ -5,6 +5,7 @@ import people.Passenger;
 import java.util.ArrayList;
 
 public class Flight {
+    
     private String departureTime;
     private String arrivalTime;
     private int price;

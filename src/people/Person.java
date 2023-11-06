@@ -2,6 +2,7 @@ package people;
 import java.time.LocalDate;
 
 public class Person {
+    
     private LocalDate bday;
     private String name;
     private String sex;
