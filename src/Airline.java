@@ -1,4 +1,5 @@
 public class Airline {
+
     private String company;
 
     public Airline(String airlineCompany) {

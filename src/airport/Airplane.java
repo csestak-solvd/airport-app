@@ -5,11 +5,13 @@ import interfaces.IBoard;
 import interfaces.IDepart;
 
 public class Airplane implements IBoard, IArrive, IDepart {
+
     private int capacity;
     private int tailNumber;
     private Flight flight;
 
     public Airplane(int capacity, int tailNumber) {
+        
         this.capacity = capacity;
         this.tailNumber = tailNumber;
     }

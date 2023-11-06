@@ -1,4 +1,7 @@
-public class Airplane implements Board, Arrive, Depart {
+import interfaces.IPlane;
+
+public class Airplane implements IPlane {
+
     private int capacity;
     private int tailNumber;
     private Flight flight;

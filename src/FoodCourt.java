@@ -1,4 +1,5 @@
 public class FoodCourt{
+
     private String foodType;
     private String restaurantName;
     private float price;
