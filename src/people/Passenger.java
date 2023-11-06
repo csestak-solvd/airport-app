@@ -24,7 +24,6 @@ public class Passenger extends Person implements IEat {
         return assistance;
     }
 
-
     public boolean hasGuardian() {
         return guardian;
     }

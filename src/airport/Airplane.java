@@ -1,8 +1,6 @@
 package airport;
 
-import interfaces.IArrive;
-import interfaces.IBoard;
-import interfaces.IDepart;
+import interfaces.IPlane;
 
 public class Airplane implements IPlane {
 
@@ -11,7 +9,6 @@ public class Airplane implements IPlane {
     private Flight flight;
 
     public Airplane(int capacity, int tailNumber) {
-
         this.capacity = capacity;
         this.tailNumber = tailNumber;
     }

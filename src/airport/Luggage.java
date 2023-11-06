@@ -2,8 +2,8 @@ package airport;
 
 public class Luggage {
     
-    int count;
-    int weight;
+    private int count;
+    private int weight;
 
     public Luggage(int bagCount, int weight) {
         this.count = bagCount;

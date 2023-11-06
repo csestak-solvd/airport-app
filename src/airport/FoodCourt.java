@@ -2,9 +2,9 @@ package airport;
 
 public class FoodCourt {
     
-    public static String foodType;
-    public static String restaurantName;
-    public static double price;
+    private String foodType;
+    private String restaurantName;
+    private double price;
 
     public FoodCourt(String food, String place, double fPrice) {
         this.foodType = food;

@@ -1,10 +1,18 @@
 package airport;
 
+import people.Employee;
+import java.util.ArrayList;
+
 public class Airport {
 
     private String name;
     private String location;
     private String type;
+    private ArrayList<Airline> airlines;
+    private ArrayList<Employee> employees;
+    private ArrayList<Restroom> restrooms;
+    private ArrayList<FoodCourt> foodCourts;
+    private ArrayList<Parking> parkingLots;
 
     public Airport(String airportName, String airportLoc, String airportType) {
         this.name = airportName;
@@ -35,7 +43,6 @@ public class Airport {
     private void setType() {
         this.type = type;
     }
-
 
     @Override
     public String toString() {

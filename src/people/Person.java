@@ -1,7 +1,9 @@
 package people;
+import interfaces.IEat;
+import airport.FoodCourt;
 import java.time.LocalDate;
 
-public class Person {
+public class Person implements IEat {
     
     private LocalDate bday;
     private String name;
@@ -40,5 +42,9 @@ public class Person {
     @Override
     public String toString() {
         return "Person: [Name: " + name + ", bday: " + bday + ", Sex: " + sex + "]";
+    }
+    @Override
+    public void eat() {
+        System.out.println("I ate:" + Foodcourt.foodType + "from:" + FoodCourt.restaurantName + "it cost: " + FoodCourt.price);
     }
 }

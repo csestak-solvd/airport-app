@@ -2,23 +2,23 @@ package airport;
 
 public class Airline {
 
-    private String company;
+    private String companyName;
 
     public Airline(String airlineCompany) {
-        this.company = airlineCompany;
+        this.companyName = airlineCompany;
     }
 
-    private String getCompany() {
-        return this.company;
+    private String getCompanyName() {
+        return this.companyName;
     }
 
 
-    public void setCompany(String company) {
-        this.company = company;
+    public void setCompanyName(String company) {
+        this.companyName = company;
     }
 
     @Override
     public String toString() {
-        return "The airport.Airline is " + this.company;
+        return "The airport.Airline is " + this.companyName;
     }
 }
