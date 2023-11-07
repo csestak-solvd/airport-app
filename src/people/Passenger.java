@@ -1,16 +1,16 @@
 package people;
+import airport.Luggage;
 
-import interfaces.IEat;
 import airport.FoodCourt;
 
 import java.time.LocalDate;
 
-public class Passenger extends Person implements IEat {
+public class Passenger extends Person {
     
     private boolean assistance;
     private boolean guardian;
     private boolean security;
-    private FoodCourt food;
+    private Luggage luggage;
 
     public Passenger(LocalDate bday, String name, String sex, boolean assistance, boolean guardian, boolean security) {
         super(bday, name, sex);
@@ -44,10 +44,8 @@ public class Passenger extends Person implements IEat {
         this.security = security;
     }
 
-    @Override
-    public void eat() {
-        System.out.println("Im hungry for" + FoodCourt.foodType + "from" + FoodCourt.restaurantName + "and the price is" + FoodCourt.price);
-    }
+    if()
+
     @Override
     public String toString() {
         return "Passenger: " + super.toString() +

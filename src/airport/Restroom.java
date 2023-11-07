@@ -1,6 +1,8 @@
 package airport;
 
-public class Restroom {
+import interfaces.RestroomAvailability;
+
+public class Restroom extends RestroomAvailability {
     
     private String sex;
     private boolean clean;
@@ -43,5 +45,10 @@ public class Restroom {
     @Override
     public String toString() {
         return "The" + this.sex + "restroom is clean:" + this.clean + "and is available" + this.available + ".";
+    }
+
+    @Override
+    public void readyToUse() {
+        System.out.println("The" + sex + "bathroom is clean:" + clean + "and is ready to use:" + available);
     }
 }

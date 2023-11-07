@@ -3,7 +3,7 @@ import interfaces.IEat;
 import airport.FoodCourt;
 import java.time.LocalDate;
 
-public class Person implements IEat {
+public class Person extends IEat {
     
     private LocalDate bday;
     private String name;
@@ -43,8 +43,9 @@ public class Person implements IEat {
     public String toString() {
         return "Person: [Name: " + name + ", bday: " + bday + ", Sex: " + sex + "]";
     }
+
     @Override
-    public void eat() {
-        System.out.println("I ate:" + Foodcourt.foodType + "from:" + FoodCourt.restaurantName + "it cost: " + FoodCourt.price);
+    public void eat(FoodCourt foodCourt) {
+        System.out.println("I ate:" + foodCourt.getFoodType() + "from:" + foodCourt.getRestaurantName() + "it cost: " + foodCourt.getPrice());
     }
 }

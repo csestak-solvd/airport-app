@@ -29,6 +29,14 @@ public class Airplane implements IPlane {
         this.tailNumber = tailNumber;
     }
 
+    public Flight getFlight() {
+        return flight;
+    }
+
+    public void setFlight(Flight flight) {
+        this.flight = flight;
+    }
+
     @Override
     public void boardingTime() {
         System.out.println("Plane boards in 30 minutes");
@@ -41,12 +49,12 @@ public class Airplane implements IPlane {
 
     @Override
     public void depart() {
-        System.out.println("I departed on a " + IDepart.depPlane);
+        System.out.println("I departed on a Boeing 747");
     }
 
     @Override
     public void arrive() {
-        System.out.println("I arrived on a " + IArrive.arrPlane);
+        System.out.println("I arrived on a Boeing 757");
     }
 
     @Override
