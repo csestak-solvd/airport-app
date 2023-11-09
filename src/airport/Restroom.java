@@ -2,7 +2,7 @@ package airport;
 
 import interfaces.RestroomAvailability;
 
-public class Restroom extends RestroomAvailability {
+public class Restroom implements RestroomAvailability {
     
     private String sex;
     private boolean clean;
@@ -48,7 +48,7 @@ public class Restroom extends RestroomAvailability {
     }
 
     @Override
-    public void readyToUse() {
+    public void availableForUse() {
         System.out.println("The" + sex + "bathroom is clean:" + clean + "and is ready to use:" + available);
     }
 }

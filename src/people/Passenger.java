@@ -1,8 +1,7 @@
 package people;
+
 import airport.Luggage;
-
 import airport.FoodCourt;
-
 import java.time.LocalDate;
 
 public class Passenger extends Person {
@@ -32,6 +31,14 @@ public class Passenger extends Person {
         return security;
     }
 
+    public Luggage getLuggage() {
+        return luggage;
+    }
+
+    public void setLuggage(Luggage luggage) {
+        this.luggage = luggage;
+    }
+
     public void setAssistance(boolean assistance) {
         this.assistance = assistance;
     }
@@ -44,7 +51,6 @@ public class Passenger extends Person {
         this.security = security;
     }
 
-    if()
 
     @Override
     public String toString() {

@@ -3,7 +3,7 @@ import interfaces.IEat;
 import airport.FoodCourt;
 import java.time.LocalDate;
 
-public class Person extends IEat {
+public class Person implements IEat {
     
     private LocalDate bday;
     private String name;

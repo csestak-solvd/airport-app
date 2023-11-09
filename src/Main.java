@@ -5,9 +5,17 @@ import people.Passenger;
 import people.Person;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import java.lang.invoke.MethodHandles;
 
 public class Main {
+
+    private static final Logger LOGGER = LogManager.getLogger(MethodHandles.lookup().lookupClass());
+
     public static void main(String[] args) {
+        LOGGER.info("test");
+
         LocalDate birthDate = LocalDate.of(1990, 5, 15);
 
         Parking parking = new Parking("Extended parking", 55, 15);

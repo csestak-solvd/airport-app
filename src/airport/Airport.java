@@ -1,9 +1,10 @@
 package airport;
 
+import interfaces.IAnnouncement;
 import people.Employee;
 import java.util.ArrayList;
 
-public class Airport {
+public class Airport implements IAnnouncement {
 
     private final String OPERATING_HOURS = "0500-2200";
     private String name;
@@ -102,5 +103,20 @@ public class Airport {
     @Override
     public String toString() {
         return "airport.Airport name: " + this.name + "location: " + this.location + "airport type: " + this.type;
+    }
+
+    @Override
+    public void gateAnnouncement() {
+        System.out.println("Gate: " + this.gates.get(0) + "is now boarding");
+    }
+
+    @Override
+    public void lotAnnouncement() {
+        System.out.println("Parking lot:" + this.parkingLots.get(0) + " is now full");
+    }
+
+    @Override
+    public void employeeAnnouncement() {
+        System.out.println("Would employee: " + this.employees.get(0) + "please return to" + this.employees.get(0).getPosition());
     }
 }

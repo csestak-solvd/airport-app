@@ -1,6 +1,6 @@
 package interfaces;
 
-public abstract class RestroomAvailability {
+public interface RestroomAvailability {
 
-    public abstract void readyToUse();
+    void availableForUse();
 }
