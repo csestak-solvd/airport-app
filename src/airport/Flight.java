@@ -18,6 +18,10 @@ public class Flight {
         this.price = price;
     }
 
+    public void addPassenger(Passenger passenger) {
+        passengers.add(passenger);
+    }
+
     public String getDepartureTime() {
         return departureTime;
     }
