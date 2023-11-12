@@ -1,10 +1,15 @@
 package people;
 import interfaces.IEat;
 import airport.FoodCourt;
+
+import java.lang.invoke.MethodHandles;
 import java.time.LocalDate;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class Person implements IEat {
-    
+
+    private static final Logger LOGGER = LogManager.getLogger(MethodHandles.lookup().lookupClass());
     private LocalDate bday;
     private String name;
     private String sex;
@@ -46,6 +51,6 @@ public class Person implements IEat {
 
     @Override
     public void eat(FoodCourt foodCourt) {
-        System.out.println("I ate:" + foodCourt.getFoodType() + "from:" + foodCourt.getRestaurantName() + "it cost: " + foodCourt.getPrice());
+        LOGGER.info("I ate:" + foodCourt.getFoodType() + "from:" + foodCourt.getRestaurantName() + "it cost: " + foodCourt.getPrice());
     }
 }

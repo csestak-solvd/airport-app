@@ -1,11 +1,16 @@
 package airport;
 
 import interfaces.IAnnouncement;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import people.Employee;
+
+import java.lang.invoke.MethodHandles;
 import java.util.ArrayList;
 
 public class Airport implements IAnnouncement {
 
+    private static final Logger LOGGER = LogManager.getLogger(MethodHandles.lookup().lookupClass());
     private final String OPERATING_HOURS = "0500-2200";
     private String name;
     private String location;
@@ -107,16 +112,16 @@ public class Airport implements IAnnouncement {
 
     @Override
     public void gateAnnouncement() {
-        System.out.println("Gate: " + this.gates.get(0) + "is now boarding");
+        LOGGER.debug("Gate: " + this.gates.get(0) + "is now boarding");
     }
 
     @Override
     public void lotAnnouncement() {
-        System.out.println("Parking lot:" + this.parkingLots.get(0) + " is now full");
+        LOGGER.error("Parking lot:" + this.parkingLots.get(0) + " is now full");
     }
 
     @Override
     public void employeeAnnouncement() {
-        System.out.println("Would employee: " + this.employees.get(0) + "please return to" + this.employees.get(0).getPosition());
+        LOGGER.info("Would employee: " + this.employees.get(0) + "please return to" + this.employees.get(0).getPosition());
     }
 }

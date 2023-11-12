@@ -1,9 +1,15 @@
 package airport;
 
-import interfaces.RestroomAvailability;
+import interfaces.IRestroomAvailability;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
-public class Restroom implements RestroomAvailability {
-    
+import java.lang.invoke.MethodHandles;
+
+public class Restroom implements IRestroomAvailability {
+
+    private static final Logger LOGGER = LogManager.getLogger(MethodHandles.lookup().lookupClass());
+
     private String sex;
     private boolean clean;
     private boolean available;
@@ -39,7 +45,7 @@ public class Restroom implements RestroomAvailability {
     }
 
     public void useRestroom() {
-        System.out.println("Restroom is available for use");
+        LOGGER.info("Restroom is available for use");
     }
 
     @Override
@@ -48,7 +54,7 @@ public class Restroom implements RestroomAvailability {
     }
 
     @Override
-    public void availableForUse() {
-        System.out.println("The" + sex + "bathroom is clean:" + clean + "and is ready to use:" + available);
+    public void checkAvailability() {
+        LOGGER.info("The" + sex + "bathroom is clean:" + clean + "and is ready to use:" + available);
     }
 }
