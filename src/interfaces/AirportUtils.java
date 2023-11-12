@@ -2,11 +2,14 @@ package interfaces;
 
 import airport.Airport;
 import airport.Gate;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
+import java.lang.invoke.MethodHandles;
 import java.util.ArrayList;
 
 public final class AirportUtils {
-
+    private static final Logger LOGGER = LogManager.getLogger(MethodHandles.lookup().lookupClass());
     public static final String SPECIAL_NEEDS_CATEGORY = "Special Needs";
 
     public static final boolean isSpecialNeedsCategory(String category) {
@@ -14,7 +17,7 @@ public final class AirportUtils {
     }
 
     static {
-        System.out.println("interfaces.AirportUtils is initializing...");
+        LOGGER.info("interfaces.AirportUtils is initializing...");
     }
 
     public static ArrayList<Gate> findAvailableGates(Airport airport, String desiredGateType) {
