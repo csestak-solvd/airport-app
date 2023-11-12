@@ -3,13 +3,10 @@ import interfaces.AirportUtils;
 import people.Employee;
 import people.Passenger;
 import people.Person;
-
 import java.time.LocalDate;
 import java.util.ArrayList;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
 import java.lang.invoke.MethodHandles;
 
 public class Main {
@@ -17,6 +14,7 @@ public class Main {
     private static final Logger LOGGER = LogManager.getLogger(MethodHandles.lookup().lookupClass());
 
     public static void main(String[] args) {
+        LOGGER.info("test");
 
         LocalDate birthDate = LocalDate.of(1990, 5, 15);
 
@@ -36,6 +34,7 @@ public class Main {
         flight.setAirline(airline);
 
         Employee employee = new Employee(birthDate, "Brailee Ses", "Female", "Ramp Controller", "On Shift");
+
 
         Airplane airplane = new Airplane(150, 8810);
         airplane.setFlight(flight);
@@ -57,10 +56,10 @@ public class Main {
         ArrayList<Gate> availableGates = AirportUtils.findAvailableGates(airport, desiredGateType);
 
         for (Gate gates : availableGates) {
-            LOGGER.info("Gate Number: " + gates.getGateNumber());
-            LOGGER.info("Gate Status: " + gates.getGateStatus());
-            LOGGER.info("Gate Type: " + gates.getGateType());
-
+            System.out.println("Gate Number: " + gates.getGateNumber());
+            System.out.println("Gate Status: " + gates.getGateStatus());
+            System.out.println("Gate Type: " + gates.getGateType());
+            System.out.println(); // Add a separator between gates
         }
 
     }

@@ -1,14 +1,9 @@
 package airport;
 
 import interfaces.IPlane;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
-import java.lang.invoke.MethodHandles;
 
 public class Airplane implements IPlane {
 
-    private static final Logger LOGGER = LogManager.getLogger(MethodHandles.lookup().lookupClass());
     private int capacity;
     private int tailNumber;
     private Flight flight;
@@ -44,22 +39,22 @@ public class Airplane implements IPlane {
 
     @Override
     public void boardingTime() {
-        LOGGER.info("Plane boards in 30 minutes");
+        System.out.println("Plane boards in 30 minutes");
     }
 
     @Override
     public void boardingStatus() {
-        LOGGER.info("Plane has been boarded.");
+        System.out.println("Plane has been boarded.");
     }
 
     @Override
     public void depart() {
-        LOGGER.info("I departed on a Boeing 747");
+        System.out.println("I departed on a Boeing 747");
     }
 
     @Override
     public void arrive() {
-        LOGGER.info("I arrived on a Boeing 757");
+        System.out.println("I arrived on a Boeing 757");
     }
 
     @Override
