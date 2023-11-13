@@ -7,6 +7,7 @@ import people.Person;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -16,7 +17,6 @@ import java.lang.invoke.MethodHandles;
 public class Main {
 
     private static final Logger LOGGER = LogManager.getLogger(MethodHandles.lookup().lookupClass());
-
     public static void main(String[] args) {
 
         LocalDate birthDate = LocalDate.of(1990, 5, 15);
@@ -25,8 +25,10 @@ public class Main {
 
         FoodCourt foodCourt = new FoodCourt("Pork Fried Rice", "Panda Express", 12);
 
-        try (FoodCourt foodCourt1 = new FoodCourt("Pizza", "Dominoes", 12)) {
-            foodCourt1.orderFood("Burger");
+        try (Scanner scanner = new Scanner(System.in)) {
+            LOGGER.info("Enter the food Item: ");
+            String foodItem = scanner.nextLine();
+            foodCourt.orderFood(foodItem);
             LOGGER.info("Order Received!");
         } catch (InvalidFoodItemException e) {
             LOGGER.error("Error ordering food: " + e.getMessage());
@@ -35,26 +37,22 @@ public class Main {
         Person person = new Person(birthDate, "Ryan Reynolds", "Male");
         person.eat(foodCourt);
 
-        Passenger passenger = new Passenger(birthDate, "Ryan Reynolds", "Male", false, false, true);
-        Passenger passenger1 = new Passenger(LocalDate.of(1989, 3, 12), "Jake Gyllenhal", "Male", false, false, true);
+        Passenger passengerRyan = new Passenger(birthDate, "Ryan Reynolds", "Male", false, false, true);
+        Passenger passengerJake = new Passenger(LocalDate.of(1989, 3, 12), "Jake Gyllenhal", "Male", false, false, true);
 
         Airline airline = new Airline("Spirit");
 
         Flight flight = new Flight("8:00AM", "11:00AM", 250);
-        flight.addPassenger(passenger);
-        flight.addPassenger(passenger1);
+        flight.addPassenger(passengerRyan);
+        flight.addPassenger(passengerJake);
         flight.setAirline(airline);
 
         try {
             Passenger foundPassenger = flight.findPassengerById(1);
             LOGGER.info("Found: " + foundPassenger);
+            flight.removePassengerById(2);
+            LOGGER.info("Passenger with ID 2 removed");
 
-            Passenger removedPassenger = flight.removePassengerById(2);
-            if(removedPassenger != null) {
-                LOGGER.info("Passenger removed: " + removedPassenger);
-            } else {
-                LOGGER.error("Passenger not Found.");
-            }
             LOGGER.debug("Updated Passenger List: " + flight.getPassengers());
         } catch (PassengerNotFoundException e) {
             LOGGER.error("Error: " + e.getMessage());

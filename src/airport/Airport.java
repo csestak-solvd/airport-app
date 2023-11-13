@@ -9,6 +9,8 @@ import people.Employee;
 
 import java.lang.invoke.MethodHandles;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Airport implements IAnnouncement {
 
@@ -24,6 +26,7 @@ public class Airport implements IAnnouncement {
     private ArrayList<Parking> parkingLots;
     private ArrayList<Gate> gates;
     private ArrayList<Flight> flights;
+    private Map<String, Airport> airportMap;
 
     public Airport(String airportName, String airportLoc, String airportType) {
         this.name = airportName;
@@ -36,10 +39,12 @@ public class Airport implements IAnnouncement {
         this.parkingLots = new ArrayList<>();
         this.gates = new ArrayList<>();
         this.flights = new ArrayList<>();
+        this.airportMap = new HashMap<>();
+        this.airportMap.put(airportName, this);
     }
-
-    private String getName() {
-        return this.name;
+    //get an airport by name
+    public Airport getAirportByName(String airportName) {
+        return airportMap.get(airportName);
     }
 
     private String getLocation() {

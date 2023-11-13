@@ -88,18 +88,15 @@ public class Flight {
         throw new PassengerNotFoundException("Passenger with the ID: " + passengerId + " not found.");
     }
 
-    public Passenger removePassengerById(int passengerId) {
-        Passenger passengerToRemove = null;
+    public void removePassengerById(int passengerId) {
         try {
-            passengerToRemove = findPassengerById(passengerId);
+            Passenger passengerToRemove = findPassengerById(passengerId);
             LOGGER.info("Passenger Removed." + passengerToRemove);
             passengers.remove(passengerToRemove);
 
         } catch (PassengerNotFoundException e) {
             LOGGER.error("Error: " + e.getMessage());
         }
-
-        return passengerToRemove; //Return the removed passenger or null if not found.
     }
 
     @Override

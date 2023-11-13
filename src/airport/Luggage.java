@@ -1,7 +1,14 @@
 package airport;
 
-public class Luggage {
-    
+import interfaces.ILuggageWeightCheck;
+import org.apache.logging.log4j.LogManager;
+
+import java.lang.invoke.MethodHandles;
+import java.util.logging.Logger;
+
+public class Luggage implements ILuggageWeightCheck {
+
+    private static final org.apache.logging.log4j.Logger LOGGER = LogManager.getLogger(MethodHandles.lookup().lookupClass());
     private int count;
     private int weight;
 
@@ -24,5 +31,14 @@ public class Luggage {
 
     public void setWeight(int weight) {
         this.weight = weight;
+    }
+
+    @Override
+    public void weightCheck() {
+        if (this.weight > 20) {
+            LOGGER.info("Bag is too heavy and will cost you more");
+        } else {
+            LOGGER.info("Bag is Checked");
+        }
     }
 }
