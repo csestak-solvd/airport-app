@@ -1,11 +1,14 @@
 package people;
 
 import airport.Luggage;
-import airport.FoodCourt;
+
 import java.time.LocalDate;
 
 public class Passenger extends Person {
-    
+
+    private static int passengerIdCounter = 1;
+
+    private int passengerId;
     private boolean assistance;
     private boolean guardian;
     private boolean security;
@@ -13,6 +16,7 @@ public class Passenger extends Person {
 
     public Passenger(LocalDate bday, String name, String sex, boolean assistance, boolean guardian, boolean security) {
         super(bday, name, sex);
+        this.passengerId = passengerIdCounter++;
         this.assistance = assistance;
         this.guardian = guardian;
         this.security = security;
@@ -33,6 +37,10 @@ public class Passenger extends Person {
 
     public Luggage getLuggage() {
         return luggage;
+    }
+
+    public int getPassengerId() {
+        return passengerId;
     }
 
     public void setLuggage(Luggage luggage) {
@@ -57,6 +65,7 @@ public class Passenger extends Person {
         return "Passenger: " + super.toString() +
                 ", Assistance: " + assistance +
                 ", Guardian: " + guardian +
-                ", Security: " + security;
+                ", Security: " + security +
+                ", Passenger ID: " + passengerId;
     }
 }

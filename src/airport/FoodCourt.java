@@ -1,6 +1,16 @@
 package airport;
 
-public class FoodCourt {
+import exceptions.InvalidFoodItemException;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+import java.lang.invoke.MethodHandles;
+import java.util.Arrays;
+import java.util.List;
+
+public class FoodCourt implements AutoCloseable {
+
+    private static final Logger LOGGER = LogManager.getLogger(MethodHandles.lookup().lookupClass());
     
     private String foodType;
     private String restaurantName;
@@ -34,6 +44,23 @@ public class FoodCourt {
 
     public void setPrice(float price) {
         this.price = price;
+    }
+
+    public void orderFood(String foodItem) throws InvalidFoodItemException {
+        if (!isValidFoodItem(foodItem)) {
+            throw new InvalidFoodItemException("Invalid food Item: " + foodItem);
+        }
+        LOGGER.info("Food Ordered: " + foodItem);
+    }
+
+    private boolean isValidFoodItem(String fooditem) {
+        List<String> validFoodItems = Arrays.asList("Pizza", "Burger", "Salad");
+        return validFoodItems.contains(fooditem);
+    }
+
+    @Override
+    public void close() {
+        LOGGER.info("Closing FoodCourt resources");
     }
 
 }

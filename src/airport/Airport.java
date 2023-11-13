@@ -1,5 +1,7 @@
 package airport;
 
+import exceptions.FlightNotFoundException;
+import exceptions.InvalidGateException;
 import interfaces.IAnnouncement;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -21,11 +23,19 @@ public class Airport implements IAnnouncement {
     private ArrayList<FoodCourt> foodCourts;
     private ArrayList<Parking> parkingLots;
     private ArrayList<Gate> gates;
+    private ArrayList<Flight> flights;
 
     public Airport(String airportName, String airportLoc, String airportType) {
         this.name = airportName;
         this.location = airportLoc;
         this.type = airportType;
+        this.airlines = new ArrayList<>();
+        this.employees = new ArrayList<>();
+        this.restrooms = new ArrayList<>();
+        this.foodCourts = new ArrayList<>();
+        this.parkingLots = new ArrayList<>();
+        this.gates = new ArrayList<>();
+        this.flights = new ArrayList<>();
     }
 
     private String getName() {
@@ -60,6 +70,10 @@ public class Airport implements IAnnouncement {
         return parkingLots;
     }
 
+    public ArrayList<Flight> getFlights() {
+        return flights;
+    }
+
     public ArrayList<Gate> getGates() {
         return gates;
     }
@@ -92,6 +106,10 @@ public class Airport implements IAnnouncement {
         gates.add(gate);
     }
 
+    public void addFlight(Flight flight) {
+        flights.add(flight);
+    }
+
     private void setName() {
         this.name = name;
     }
@@ -104,6 +122,29 @@ public class Airport implements IAnnouncement {
         this.type = type;
     }
 
+    public Flight findFlightById(int flightId) throws FlightNotFoundException {
+        for (Flight flight : flights) {
+            if (flight.getFlightId() == flightId) {
+                return flight;
+            }
+        }
+
+        throw new FlightNotFoundException("Flight ID:" + flightId + "not found.");
+    }
+
+    public void performAirportOperation() {
+        for (Gate gate : gates) {
+            try {
+                gate.performGateOperation();
+            } catch (InvalidGateException e) {
+                handleInvalidGateException(e);
+            }
+        }
+    }
+
+    private void handleInvalidGateException(InvalidGateException e) {
+        LOGGER.error("Airport-level error: " + e.getMessage());
+    }
 
     @Override
     public String toString() {

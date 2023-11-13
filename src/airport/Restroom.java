@@ -1,5 +1,6 @@
 package airport;
 
+import exceptions.RestroomUnavailableException;
 import interfaces.IRestroomAvailability;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -24,7 +25,7 @@ public class Restroom implements IRestroomAvailability {
         return sex;
     }
 
-    public boolean isAvailable() {
+    public boolean isRestroomAvailable() {
         return available;
     }
 
@@ -44,7 +45,10 @@ public class Restroom implements IRestroomAvailability {
         this.clean = clean;
     }
 
-    public void useRestroom() {
+    public void useRestroom() throws RestroomUnavailableException {
+        if (!isRestroomAvailable()) {
+            throw new RestroomUnavailableException("Restroom is currently unavailable");
+        }
         LOGGER.info("Restroom is available for use");
     }
 
