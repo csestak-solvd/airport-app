@@ -42,4 +42,12 @@ public class Luggage implements ILuggageWeightCheck {
             LOGGER.info("Bag is Checked");
         }
     }
+
+    @Override
+    public String toString() {
+        return "Luggage{" +
+                "count=" + count +
+                ", weight=" + weight +
+                "}";
+    }
 }

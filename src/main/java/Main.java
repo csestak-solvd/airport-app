@@ -36,6 +36,26 @@ public class Main {
         Passenger passengerRyan = new Passenger(LocalDate.of(1991, 2, 4), "Ryan Reynolds", "Male", false, false, true);
         Passenger passengerJake = new Passenger(LocalDate.of(1989, 3, 12), "Jake Gyllenhal", "Male", false, false, true);
 
+        try {
+            //creating luggage below weight 20
+            Luggage luggage1 = new Luggage(1,15);
+            Luggage luggage2 = new Luggage(2,18);
+            //creating luggage over 20 weight to throw BagOverweightException
+            Luggage luggage3 = new Luggage(3,20);
+            //checking weights
+            luggage1.weightCheck();
+            luggage2.weightCheck();
+            luggage3.weightCheck();
+            //creating passenger to add luggage
+            Passenger passengerLug = new Passenger(LocalDate.of(1957, 1, 7),"Geroge Ses", "Male", false, false, false);
+            //adding luggage to passengerLug luggage list
+            passengerLug.addLuggage(luggage1);
+            passengerLug.addLuggage(luggage2);
+            passengerLug.addLuggage(luggage3);//this will throw BagOverweightException
+        } catch (BagOverweightException e) {
+            LOGGER.error("Error:" + e.getMessage());
+        }
+
         Airline airline = new Airline("Spirit");
 
         Flight flight = new Flight("8:00AM", "11:00AM", 250);

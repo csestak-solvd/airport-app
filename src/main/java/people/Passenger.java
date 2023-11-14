@@ -3,8 +3,9 @@ package people;
 import airport.Luggage;
 
 import java.time.LocalDate;
+import java.util.LinkedList;
 
-public class Passenger extends Person {
+public class Passenger<T> extends Person {
 
     private static int passengerIdCounter = 1;
 
@@ -12,7 +13,7 @@ public class Passenger extends Person {
     private boolean assistance;
     private boolean guardian;
     private boolean security;
-    private Luggage luggage;
+    private LinkedList<T> luggageList;
 
     public Passenger(LocalDate bday, String name, String sex, boolean assistance, boolean guardian, boolean security) {
         super(bday, name, sex);
@@ -20,6 +21,7 @@ public class Passenger extends Person {
         this.assistance = assistance;
         this.guardian = guardian;
         this.security = security;
+        this.luggageList = new LinkedList<>();
     }
 
 
@@ -35,16 +37,20 @@ public class Passenger extends Person {
         return security;
     }
 
-    public Luggage getLuggage() {
-        return luggage;
+    public LinkedList<T> getLuggageList() {
+        return luggageList;
     }
 
     public int getPassengerId() {
         return passengerId;
     }
 
-    public void setLuggage(Luggage luggage) {
-        this.luggage = luggage;
+    public void addLuggage (T luggage) {
+        luggageList.add(luggage);
+    }
+
+    public void removeLuggage(T luggage) {
+        luggageList.remove(luggage);
     }
 
     public void setAssistance(boolean assistance) {
@@ -62,10 +68,19 @@ public class Passenger extends Person {
 
     @Override
     public String toString() {
+        StringBuilder luggageDetails = new StringBuilder("Luggage Details: [");//constructs string rep of luggage details and is initialized with luggage details[
+        for (T luggage : luggageList) {//for each
+            luggageDetails.append(luggage.toString()).append(", ");//appends luggage details string to be followed by comma
+        }
+        if (!luggageList.isEmpty()) {//checks if not empty, if not removes the trailing comma and space
+            luggageDetails.delete(luggageDetails.length() - 2, luggageDetails.length()); //remove last comma and space
+        }
+        luggageDetails.append("]");//finalizes it by adding ] to the end
         return "Passenger: " + super.toString() +
                 ", Assistance: " + assistance +
                 ", Guardian: " + guardian +
                 ", Security: " + security +
-                ", Passenger ID: " + passengerId;
+                ", Passenger ID: " + passengerId +
+                ", " + luggageDetails.toString();
     }
 }
