@@ -1,5 +1,6 @@
 package airport;
 
+import exceptions.BagOverweightException;
 import interfaces.ILuggageWeightCheck;
 import org.apache.logging.log4j.LogManager;
 
@@ -34,9 +35,9 @@ public class Luggage implements ILuggageWeightCheck {
     }
 
     @Override
-    public void weightCheck() {
+    public void weightCheck() throws BagOverweightException {
         if (this.weight > 20) {
-            LOGGER.info("Bag is too heavy and will cost you more");
+            throw new BagOverweightException("Bag is too heavy and will cost you more");
         } else {
             LOGGER.info("Bag is Checked");
         }

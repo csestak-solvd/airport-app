@@ -8,7 +8,7 @@ public class Airline {
         this.companyName = airlineCompany;
     }
 
-    private String getCompanyName() {
+    public String getName() {
         return this.companyName;
     }
 
