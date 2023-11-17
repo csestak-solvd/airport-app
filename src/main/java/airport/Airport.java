@@ -26,7 +26,6 @@ public class Airport implements IAnnouncement {
     private ArrayList<Employee> employees;
 
 
-
     private ArrayList<Gate> gates;
     private ArrayList<Flight> flights;
 
@@ -37,7 +36,6 @@ public class Airport implements IAnnouncement {
         this.airportFacilitiesMap = new HashMap<>();
         this.airlines = new ArrayList<>();
         this.employees = new ArrayList<>();
-
 
 
         this.gates = new ArrayList<>();
@@ -142,7 +140,14 @@ public class Airport implements IAnnouncement {
 
     @Override
     public void lotAnnouncement() {
-        LOGGER.error("Parking lot:" + this.parkingLots.get(0) + " is now full");
+        String parkingLotName = "Extended parking";
+        IFacility facility = airportFacilitiesMap.get(parkingLotName);
+        if (facility instanceof Parking) {
+            Parking parkingLot = (Parking) facility;
+            LOGGER.error("Parking lot:" + parkingLot + " is now full");
+        } else {
+            LOGGER.error("Parking lot not found");
+        }
     }
 
     @Override

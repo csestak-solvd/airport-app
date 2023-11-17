@@ -1,12 +1,13 @@
 package people;
 
+import LinkedList.CustomLinkedList;
 import airport.CarryOnBag;
 import airport.Luggage;
 
 import java.time.LocalDate;
 import java.util.LinkedList;
 
-public class Passenger<T> extends Person {
+public class Passenger extends Person {
 
     private static int passengerIdCounter = 1;
 
@@ -14,7 +15,8 @@ public class Passenger<T> extends Person {
     private boolean assistance;
     private boolean guardian;
     private boolean security;
-    private LinkedList<T> luggageList;
+    private CustomLinkedList<Luggage> luggageList;
+
 
     public Passenger(LocalDate bday, String name, String sex, boolean assistance, boolean guardian, boolean security) {
         super(bday, name, sex);
@@ -22,7 +24,7 @@ public class Passenger<T> extends Person {
         this.assistance = assistance;
         this.guardian = guardian;
         this.security = security;
-        this.luggageList = new LinkedList<>();
+        this.luggageList = new CustomLinkedList<>();
     }
 
 
@@ -38,7 +40,7 @@ public class Passenger<T> extends Person {
         return security;
     }
 
-    public LinkedList<T> getLuggageList() {
+    public CustomLinkedList<Luggage> getLuggageList() {
         return luggageList;
     }
 
@@ -46,16 +48,16 @@ public class Passenger<T> extends Person {
         return passengerId;
     }
 
-    public void addLuggage(T luggage) {
+    public void addLuggage(Luggage luggage) {
         luggageList.add(luggage);
     }
 
     public void addCarryOnBag(int bagCount, int weight) {
         CarryOnBag carryOnBag = new CarryOnBag(bagCount, weight);
-        luggageList.add((T) carryOnBag); //cast to T
+        luggageList.add(carryOnBag); //cast to T
     }
 
-    public void removeLuggage(T luggage) {
+    public void removeLuggage(Luggage luggage) {
         luggageList.remove(luggage);
     }
 
@@ -74,14 +76,17 @@ public class Passenger<T> extends Person {
 
     @Override
     public String toString() {
-        StringBuilder luggageDetails = new StringBuilder("Luggage Details: [");//constructs string rep of luggage details and is initialized with luggage details[
-        for (T luggage : luggageList) {//for each
-            luggageDetails.append(luggage.toString()).append(", ");//appends luggage details string to be followed by comma
+        StringBuilder luggageDetails = new StringBuilder("Luggage Details: [");
+        // Iterate over each luggage in the luggageList and append its string representation.
+        for (Luggage luggage : luggageList.getAll()) {
+            luggageDetails.append(luggage).append(", ");
         }
-        if (!luggageList.isEmpty()) {//checks if not empty, if not removes the trailing comma and space
-            luggageDetails.delete(luggageDetails.length() - 2, luggageDetails.length()); //remove last comma and space
+        // Check if the luggageDetails is not empty before removing the trailing comma and space.
+        if (!luggageList.isEmpty()) {
+            luggageDetails.delete(luggageDetails.length() - 2, luggageDetails.length());
         }
-        luggageDetails.append("]");//finalizes it by adding ] to the end
+        luggageDetails.append("]");
+        // Return the complete string representation of the Passenger object.
         return "Passenger: " + super.toString() +
                 ", Assistance: " + assistance +
                 ", Guardian: " + guardian +

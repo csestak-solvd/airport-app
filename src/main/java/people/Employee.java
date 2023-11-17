@@ -3,7 +3,7 @@ package people;
 import java.time.LocalDate;
 
 public class Employee extends Person {
-    
+
     private String position;
     private String working;
 

@@ -3,7 +3,7 @@ package airport;
 import interfaces.IFacility;
 
 public class Parking implements IFacility {
-    
+
     private String lot;
     private int stall;
     private int price;

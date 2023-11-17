@@ -54,7 +54,7 @@ public class Restroom implements IRestroomAvailability, IFacility {
     }
 
     @Override
-    public String getName(){
+    public String getName() {
         return sex;
     }
 

@@ -61,7 +61,7 @@ public class Flight {
         return airline;
     }
 
-    public int getFlightId(){
+    public int getFlightId() {
         return flightId;
     }
 

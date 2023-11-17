@@ -14,7 +14,7 @@ import java.util.Scanner;
 public class FoodCourt implements IFacility {
 
     private static final Logger LOGGER = LogManager.getLogger(MethodHandles.lookup().lookupClass());
-    
+
     private String foodType;
     private String restaurantName;
     private double price;

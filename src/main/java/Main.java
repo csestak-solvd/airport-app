@@ -11,11 +11,13 @@ import java.util.Scanner;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
 import java.lang.invoke.MethodHandles;
 
 public class Main {
 
     private static final Logger LOGGER = LogManager.getLogger(MethodHandles.lookup().lookupClass());
+
     public static void main(String[] args) {
         Parking parking = new Parking("Extended parking", 55, 15);
 
@@ -38,16 +40,16 @@ public class Main {
 
         try {
             //creating luggage below weight 20
-            Luggage luggage1 = new Luggage(1,15);
-            Luggage luggage2 = new Luggage(2,18);
+            Luggage luggage1 = new Luggage(1, 15);
+            Luggage luggage2 = new Luggage(2, 18);
             //creating luggage over 20 weight to throw BagOverweightException
-            Luggage luggage3 = new Luggage(3,20);
+            Luggage luggage3 = new Luggage(3, 20);
             //checking weights
             luggage1.weightCheck();
             luggage2.weightCheck();
             luggage3.weightCheck();
             //creating passenger to add luggage
-            Passenger passengerLug = new Passenger(LocalDate.of(1957, 1, 7),"Geroge Ses", "Male", false, false, false);
+            Passenger passengerLug = new Passenger(LocalDate.of(1957, 1, 7), "Geroge Ses", "Male", false, false, false);
             //adding luggage to passengerLug luggage list
             passengerLug.addLuggage(luggage1);
             passengerLug.addLuggage(luggage2);
@@ -87,7 +89,6 @@ public class Main {
         } catch (RestroomUnavailableException e) {
             LOGGER.error("Error:" + e.getMessage());
         }
-
 
         Gate gate = new Gate("A123", "Available", "Regional");
         Gate gate1 = new Gate("B456", "Boarding", "Domestic");

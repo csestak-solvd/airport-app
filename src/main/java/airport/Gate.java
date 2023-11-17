@@ -3,7 +3,7 @@ package airport;
 import exceptions.InvalidGateException;
 
 public class Gate {
-    
+
     private String gateNumber;
     private String gateStatus;
     private String gateType;
@@ -39,7 +39,7 @@ public class Gate {
     }
 
     public void performGateOperation() throws InvalidGateException {
-        if(!isValidGateNumber(gateNumber)) {
+        if (!isValidGateNumber(gateNumber)) {
             throw new InvalidGateException("Invalid gate number: " + gateNumber);
         }
     }

@@ -26,7 +26,7 @@ public final class AirportUtils {
         ArrayList<Gate> gates = airport.getGates();
 
         for (Gate gate : gates) {
-            if(gate.getGateStatus().equals("Available") && gate.getGateType().equals(desiredGateType)) {
+            if (gate.getGateStatus().equals("Available") && gate.getGateType().equals(desiredGateType)) {
                 availableGates.add(gate);
             }
         }

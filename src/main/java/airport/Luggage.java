@@ -45,9 +45,6 @@ public class Luggage implements ILuggageWeightCheck {
 
     @Override
     public String toString() {
-        return "Luggage{" +
-                "count=" + count +
-                ", weight=" + weight +
-                "}";
+        return "Luggage{" + "count=" + count + ", weight=" + weight + "}";
     }
 }

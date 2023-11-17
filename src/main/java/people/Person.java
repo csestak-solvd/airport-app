@@ -1,9 +1,11 @@
 package people;
+
 import interfaces.IEat;
 import airport.FoodCourt;
 
 import java.lang.invoke.MethodHandles;
 import java.time.LocalDate;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
