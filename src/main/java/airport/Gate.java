@@ -1,7 +1,9 @@
 package airport;
 
+import exceptions.InvalidGateException;
+
 public class Gate {
-    
+
     private String gateNumber;
     private String gateStatus;
     private String gateType;
@@ -34,6 +36,16 @@ public class Gate {
 
     public void setGateType(String gateType) {
         this.gateType = gateType;
+    }
+
+    public void performGateOperation() throws InvalidGateException {
+        if (!isValidGateNumber(gateNumber)) {
+            throw new InvalidGateException("Invalid gate number: " + gateNumber);
+        }
+    }
+
+    private boolean isValidGateNumber(String gateNumber) {
+        return gateNumber.startsWith("A");
     }
 
     @Override
