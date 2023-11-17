@@ -54,7 +54,7 @@ public class Passenger extends Person {
 
     public void addCarryOnBag(int bagCount, int weight) {
         CarryOnBag carryOnBag = new CarryOnBag(bagCount, weight);
-        luggageList.add(carryOnBag); //cast to T
+        luggageList.add(carryOnBag);
     }
 
     public void removeLuggage(Luggage luggage) {
