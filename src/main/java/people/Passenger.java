@@ -1,5 +1,6 @@
 package people;
 
+import airport.CarryOnBag;
 import airport.Luggage;
 
 import java.time.LocalDate;
@@ -45,8 +46,13 @@ public class Passenger<T> extends Person {
         return passengerId;
     }
 
-    public void addLuggage (T luggage) {
+    public void addLuggage(T luggage) {
         luggageList.add(luggage);
+    }
+
+    public void addCarryOnBag(int bagCount, int weight) {
+        CarryOnBag carryOnBag = new CarryOnBag(bagCount, weight);
+        luggageList.add((T) carryOnBag); //cast to T
     }
 
     public void removeLuggage(T luggage) {

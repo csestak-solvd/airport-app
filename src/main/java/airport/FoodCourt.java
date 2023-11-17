@@ -2,6 +2,7 @@ package airport;
 
 import exceptions.InvalidFoodItemException;
 import exceptions.InvalidGateException;
+import interfaces.IFacility;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -10,7 +11,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
-public class FoodCourt {
+public class FoodCourt implements IFacility {
 
     private static final Logger LOGGER = LogManager.getLogger(MethodHandles.lookup().lookupClass());
     
@@ -61,5 +62,8 @@ public class FoodCourt {
         return validFoodItems.contains(foodItem);
     }
 
-
+    @Override
+    public String getName() {
+        return restaurantName;
+    }
 }

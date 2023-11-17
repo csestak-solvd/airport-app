@@ -1,6 +1,8 @@
 package airport;
 
-public class Parking {
+import interfaces.IFacility;
+
+public class Parking implements IFacility {
     
     private String lot;
     private int stall;
@@ -34,5 +36,10 @@ public class Parking {
 
     public void setPrice(int price) {
         this.price = price;
+    }
+
+    @Override
+    public String getName() {
+        return lot;
     }
 }

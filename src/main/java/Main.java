@@ -52,6 +52,7 @@ public class Main {
             passengerLug.addLuggage(luggage1);
             passengerLug.addLuggage(luggage2);
             passengerLug.addLuggage(luggage3);//this will throw BagOverweightException
+            passengerLug.addCarryOnBag(1, 5);
         } catch (BagOverweightException e) {
             LOGGER.error("Error:" + e.getMessage());
         }

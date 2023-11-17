@@ -3,8 +3,10 @@ package airport;
 import exceptions.FlightNotFoundException;
 import exceptions.InvalidGateException;
 import interfaces.IAnnouncement;
+import interfaces.IFacility;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.core.net.Facility;
 import people.Employee;
 
 import java.lang.invoke.MethodHandles;
@@ -19,20 +21,12 @@ public class Airport implements IAnnouncement {
     private String name;
     private String location;
     private String type;
-
-    private Map<String, Airline> airlinesMap;
-    private Map<String, Employee> employeesMap;
-    private Map<String, Restroom> restroomsMap;
-    private Map<String, FoodCourt> foodCourtsMap;
-    private Map<String, Parking> parkingLotsMap;
-    private Map<String, Gate> gatesMap;
-    private Map<Integer, Flight> flightsMap;
-
+    private Map<String, IFacility> airportFacilitiesMap;
     private ArrayList<Airline> airlines;
     private ArrayList<Employee> employees;
-    private ArrayList<Restroom> restrooms;
-    private ArrayList<FoodCourt> foodCourts;
-    private ArrayList<Parking> parkingLots;
+
+
+
     private ArrayList<Gate> gates;
     private ArrayList<Flight> flights;
 
@@ -40,86 +34,49 @@ public class Airport implements IAnnouncement {
         this.name = airportName;
         this.location = airportLoc;
         this.type = airportType;
-        this.airlinesMap = new HashMap<>();
-        this.employeesMap = new HashMap<>();
-        this.restroomsMap = new HashMap<>();
-        this.foodCourtsMap = new HashMap<>();
-        this.parkingLotsMap = new HashMap<>();
-        this.gatesMap = new HashMap<>();
-        this.flightsMap = new HashMap<>();
+        this.airportFacilitiesMap = new HashMap<>();
         this.airlines = new ArrayList<>();
         this.employees = new ArrayList<>();
-        this.restrooms = new ArrayList<>();
-        this.foodCourts = new ArrayList<>();
-        this.parkingLots = new ArrayList<>();
+
+
+
         this.gates = new ArrayList<>();
         this.flights = new ArrayList<>();
     }
 
     public void addAirline(Airline airline) {
-        airlinesMap.put(airline.getName(), airline);
         airlines.add(airline);
     }
 
     public void addEmployee(Employee employee) {
-        employeesMap.put(employee.getName(), employee);
         employees.add(employee);
     }
 
     public void addRestroom(Restroom restroom) {
-        restroomsMap.put(restroom.getSex(), restroom);
-        restrooms.add(restroom);
+        airportFacilitiesMap.put(restroom.getName(), restroom);
     }
 
     public void addFoodCourt(FoodCourt foodCourt) {
-        foodCourtsMap.put(foodCourt.getRestaurantName(), foodCourt);
-        foodCourts.add(foodCourt);
+        airportFacilitiesMap.put(foodCourt.getName(), foodCourt);
     }
 
     public void addParking(Parking parking) {
-        parkingLotsMap.put(parking.getLot(), parking);
-        parkingLots.add(parking);
+        airportFacilitiesMap.put(parking.getName(), parking);
+    }
+
+    public IFacility getFacilityByName(String facilityName) {
+        return airportFacilitiesMap.get(facilityName);
     }
 
     public void addGate(Gate gate) {
-        gatesMap.put(gate.getGateNumber(), gate);
         gates.add(gate);
     }
 
     public void addFlight(Flight flight) {
-        flightsMap.put(flight.getFlightId(), flight);
         flights.add(flight);
     }
 
     // Methods to get entities from the HashMaps
-
-    public Airline getAirlineByName(String airlineName) {
-        return airlinesMap.get(airlineName);
-    }
-
-    public Employee getEmployeeByName(String employeeName) {
-        return employeesMap.get(employeeName);
-    }
-
-    public Restroom getRestroomBySex(String sex) {
-        return restroomsMap.get(sex);
-    }
-
-    public FoodCourt getFoodCourtByName(String restaurantName) {
-        return foodCourtsMap.get(restaurantName);
-    }
-
-    public Parking getParkingByName(String parkingName) {
-        return parkingLotsMap.get(parkingName);
-    }
-
-    public Gate getGateByNumber(String gateNumber) {
-        return gatesMap.get(gateNumber);
-    }
-
-    public Flight getFlightById(int flightId) {
-        return flightsMap.get(flightId);
-    }
 
     private String getLocation() {
         return this.location;
@@ -135,18 +92,6 @@ public class Airport implements IAnnouncement {
 
     public ArrayList<Employee> getEmployees() {
         return employees;
-    }
-
-    public ArrayList<Restroom> getRestrooms() {
-        return restrooms;
-    }
-
-    public ArrayList<FoodCourt> getFoodCourts() {
-        return foodCourts;
-    }
-
-    public ArrayList<Parking> getParkingLots() {
-        return parkingLots;
     }
 
     public ArrayList<Flight> getFlights() {
