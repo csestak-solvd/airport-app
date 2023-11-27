@@ -1,9 +1,9 @@
-import airport.*;
-import exceptions.*;
-import interfaces.AirportUtils;
-import people.Employee;
-import people.Passenger;
-import people.Person;
+import com.solvd.airport.*;
+import com.solvd.exceptions.*;
+import com.solvd.interfaces.AirportUtils;
+import com.solvd.people.Employee;
+import com.solvd.people.Passenger;
+import com.solvd.people.Person;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
