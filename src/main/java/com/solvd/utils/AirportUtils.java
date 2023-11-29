@@ -1,4 +1,4 @@
-package com.solvd.interfaces;
+package com.solvd.utils;
 
 import com.solvd.airport.Airport;
 import com.solvd.airport.Gate;

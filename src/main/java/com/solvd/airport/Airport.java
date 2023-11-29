@@ -121,10 +121,6 @@ public class Airport implements IAnnouncement {
         LOGGER.error("Airport-level error: " + e.getMessage());
     }
 
-    @Override
-    public String toString() {
-        return "Airport name: " + this.name + ", location: " + this.location + ", airport type: " + this.type;
-    }
 
     @Override
     public void gateAnnouncement() {
@@ -146,5 +142,10 @@ public class Airport implements IAnnouncement {
     @Override
     public void employeeAnnouncement() {
         LOGGER.info("Would employee: " + this.employees.get(0) + " please return to " + this.employees.get(0).getPosition());
+    }
+
+    @Override
+    public String toString() {
+        return "Airport name: " + this.name + "operating hours: " + OPERATING_HOURS + ", location: " + this.location + ", airport type: " + this.type;
     }
 }

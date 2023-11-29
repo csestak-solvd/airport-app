@@ -11,7 +11,6 @@ import java.util.ArrayList;
 public class Flight {
 
     private static final Logger LOGGER = LogManager.getLogger(MethodHandles.lookup().lookupClass());
-
     private static int flightIdCounter = 1;
     private int flightId;
     private String departureTime;

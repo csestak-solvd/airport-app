@@ -11,7 +11,6 @@ import java.lang.invoke.MethodHandles;
 public class Restroom implements IRestroomAvailability, IFacility {
 
     private static final Logger LOGGER = LogManager.getLogger(MethodHandles.lookup().lookupClass());
-
     private String sex;
     private boolean clean;
     private boolean available;
@@ -59,12 +58,12 @@ public class Restroom implements IRestroomAvailability, IFacility {
     }
 
     @Override
-    public String toString() {
-        return "The" + this.sex + "restroom is clean:" + this.clean + "and is available" + this.available + ".";
-    }
-
-    @Override
     public void checkAvailability() {
         LOGGER.info("The" + sex + "bathroom is clean:" + clean + "and is ready to use:" + available);
+    }
+    
+    @Override
+    public String toString() {
+        return "The" + this.sex + "restroom is clean:" + this.clean + "and is available" + this.available + ".";
     }
 }

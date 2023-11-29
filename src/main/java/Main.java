@@ -1,6 +1,6 @@
 import com.solvd.airport.*;
 import com.solvd.exceptions.*;
-import com.solvd.interfaces.AirportUtils;
+import com.solvd.utils.AirportUtils;
 import com.solvd.people.Employee;
 import com.solvd.people.Passenger;
 import com.solvd.people.Person;

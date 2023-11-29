@@ -9,7 +9,6 @@ import java.time.LocalDate;
 public class Passenger extends Person {
 
     private static int passengerIdCounter = 1;
-
     private int passengerId;
     private boolean assistance;
     private boolean guardian;

@@ -1,2 +1,0 @@
-hello world file
-number of unique words: 3

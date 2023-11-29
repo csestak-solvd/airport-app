@@ -47,12 +47,12 @@ public class Person implements IEat {
     }
 
     @Override
-    public String toString() {
-        return "Person: [Name: " + name + ", bday: " + bday + ", Sex: " + sex + "]";
+    public void eat(FoodCourt foodCourt) {
+        LOGGER.info("I ate:" + foodCourt.getFoodType() + "from:" + foodCourt.getRestaurantName() + "it cost: " + foodCourt.getPrice());
     }
 
     @Override
-    public void eat(FoodCourt foodCourt) {
-        LOGGER.info("I ate:" + foodCourt.getFoodType() + "from:" + foodCourt.getRestaurantName() + "it cost: " + foodCourt.getPrice());
+    public String toString() {
+        return "Person: [Name: " + name + ", bday: " + bday + ", Sex: " + sex + "]";
     }
 }
