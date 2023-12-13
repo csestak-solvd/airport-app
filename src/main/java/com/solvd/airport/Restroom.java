@@ -15,8 +15,8 @@ public class Restroom implements IRestroomAvailability, IFacility {
     private boolean clean;
     private boolean available;
 
-    public Restroom(String MoF, boolean isItClean, boolean avail) {
-        this.sex = MoF;
+    public Restroom(String sex, boolean isItClean, boolean avail) {
+        this.sex = sex;
         this.available = avail;
         this.clean = isItClean;
     }
@@ -37,7 +37,7 @@ public class Restroom implements IRestroomAvailability, IFacility {
         this.sex = sex;
     }
 
-    public void setAvailable(boolean available) {
+    public void isAvailable(boolean available) {
         this.available = available;
     }
 

@@ -1,5 +1,6 @@
 package com.solvd.airport;
 
+import com.solvd.enums.FlightStatus;
 import com.solvd.exceptions.FlightNotFoundException;
 import com.solvd.exceptions.InvalidGateException;
 import com.solvd.interfaces.IAnnouncement;
@@ -9,9 +10,8 @@ import org.apache.logging.log4j.Logger;
 import com.solvd.people.Employee;
 
 import java.lang.invoke.MethodHandles;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class Airport implements IAnnouncement {
 
@@ -85,8 +85,14 @@ public class Airport implements IAnnouncement {
         return employees;
     }
 
-    public ArrayList<Flight> getFlights() {
+    public List<Flight> getFlights() {
         return flights;
+    }
+
+    public List<Flight> getDelayedFlights() {
+        return flights.stream()
+                .filter(flight -> flight.getFlightStatus() == FlightStatus.DELAYED)
+                .collect(Collectors.toList());
     }
 
     public ArrayList<Gate> getGates() {
@@ -97,24 +103,20 @@ public class Airport implements IAnnouncement {
         this.gates = gates;
     }
 
-    public Flight findFlightById(int flightId) throws FlightNotFoundException {
-        for (Flight flight : flights) {
-            if (flight.getFlightId() == flightId) {
-                return flight;
-            }
-        }
-
-        throw new FlightNotFoundException("Flight ID:" + flightId + "not found.");
+    public Optional<Flight> findFlightById(int flightId) throws FlightNotFoundException {
+        return flights.stream()
+                .filter(flight -> flight.getFlightId() == flightId)
+                .findFirst();
     }
 
     public void performAirportOperation() {
-        for (Gate gate : gates) {
+        gates.forEach(gate -> {
             try {
                 gate.performGateOperation();
             } catch (InvalidGateException e) {
                 handleInvalidGateException(e);
             }
-        }
+        });
     }
 
     private void handleInvalidGateException(InvalidGateException e) {

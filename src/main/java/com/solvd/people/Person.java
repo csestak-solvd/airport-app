@@ -30,7 +30,7 @@ public class Person implements IEat {
         return sex;
     }
 
-    public LocalDate getMyDate() {
+    public LocalDate getBday() {
         return bday;
     }
 
@@ -48,7 +48,7 @@ public class Person implements IEat {
 
     @Override
     public void eat(FoodCourt foodCourt) {
-        LOGGER.info("I ate:" + foodCourt.getFoodType() + "from:" + foodCourt.getRestaurantName() + "it cost: " + foodCourt.getPrice());
+        LOGGER.info("I ate: " + foodCourt.getFoodType() + " from: " + foodCourt.getRestaurantName() + " it cost: " + foodCourt.getPrice());
     }
 
     @Override
