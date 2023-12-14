@@ -32,3 +32,5 @@ bin/
 airport.iml
 .class
 target
+
+airport.log

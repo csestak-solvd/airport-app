@@ -8,7 +8,6 @@ import com.solvd.people.Passenger;
 import com.solvd.people.Person;
 
 import java.lang.reflect.Constructor;
-import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.time.LocalDate;
@@ -46,7 +45,7 @@ public class Main {
 
         ISecurityService<Passenger> passengerSecurityService = passenger -> {
             int age = passenger.calculateAge();
-            if (age >=65) {
+            if (age >= 65) {
                 return SecurityLevel.HIGH;
             } else if (age >= 18) {
                 return SecurityLevel.MEDIUM;
@@ -109,8 +108,8 @@ public class Main {
             LOGGER.error("Error:" + e.getMessage());
         }
 
-        Gate gate = new Gate("A123", GateStatus.AVAILABLE, "Regional");
-        Gate gate1 = new Gate("B456", GateStatus.BOARDING, "Domestic");
+        Gate gate = new Gate("A123", GateStatus.AVAILABLE,GateType.DOMESTIC);
+        Gate gate1 = new Gate("B456", GateStatus.BOARDING, GateType.REGIONAL);
         Airport airport = new Airport("Hobby Airport", "Houston", "International");
         airport.addEmployee(employee);
         airport.addAirline(airline);
@@ -176,49 +175,19 @@ public class Main {
         }
 
         try {
-            //get the Class object for the Flight class
             Class<?> flightClass = Class.forName("com.solvd.airport.Flight");
-
-            //get the default constructor of the Flight class
-            Constructor<?> defaultConstructor = flightClass.getDeclaredConstructor();
-
-            //create a new instance of the Flight class using the default constructor
-            Object newFlight = defaultConstructor.newInstance();
-
-            //access and set values for the properties using reflection
-            //method to set departure time
-            Method setDepartureTimeMethod = flightClass.getDeclaredMethod("setDepartureTime", LocalDateTime.class);
-            setDepartureTimeMethod.invoke(newFlight, LocalDateTime.now());
-
-            //method to set arrival time
-            Method setArrivalTimeMethod = flightClass.getDeclaredMethod("setArrivalTime", LocalDateTime.class);
-            setArrivalTimeMethod.invoke(newFlight, LocalDateTime.now().plusHours(3));
-
-            //method to set price
-            Method setPriceMethod = flightClass.getDeclaredMethod("setPrice", int.class);
-            setPriceMethod.invoke(newFlight, 500);
-
-            //method to set FlightType
-            Method setFlightTypeMethod = flightClass.getDeclaredMethod("setFlightType", FlightType.class);
-
-            //get the FlightType enum value
-            Enum<?> flightTypeEnum = Enum.valueOf((Class<Enum>) Class.forName("com.solvd.enums.FlightType"), "DOMESTIC");
-
-            //invoke the setFlightType method on the newFlight object
-            setFlightTypeMethod.invoke(newFlight, flightTypeEnum);
-
-            //method to set FlightStatus
+            Constructor<?> constructor = flightClass.getDeclaredConstructor(
+                    LocalDateTime.class, LocalDateTime.class, int.class, FlightType.class);
+            Object newFlight = constructor.newInstance(
+                    LocalDateTime.now(), // departureTime
+                    LocalDateTime.now().plusHours(3), // arrivalTime
+                    500, // price
+                    Enum.valueOf(FlightType.class, "DOMESTIC")  // flightType
+            );
             Method setFlightStatusMethod = flightClass.getDeclaredMethod("setFlightStatus", FlightStatus.class);
-
-            //get the FlightStatus enum value
-            Enum<?> flightStatusEnum = Enum.valueOf((Class<Enum>) Class.forName("com.solvd.enums.FlightStatus"), "ON_TIME");
-
-            //invoke the setFlightStatus method on the newFlight object
+            Enum<?> flightStatusEnum = Enum.valueOf(FlightStatus.class, "ON_TIME");
             setFlightStatusMethod.invoke(newFlight, flightStatusEnum);
-
-            //print the newly created Flight object
             LOGGER.info("Newly created Flight: " + newFlight);
-
         } catch (ClassNotFoundException | NoSuchMethodException | InstantiationException |
                  IllegalAccessException | InvocationTargetException e) {
             LOGGER.error(e.getMessage());

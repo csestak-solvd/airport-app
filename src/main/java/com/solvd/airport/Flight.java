@@ -36,10 +36,6 @@ public class Flight {
         this.flightId = flightIdCounter++;
     }
 
-    public Flight() {
-        // Default constructor
-    }
-
     public void addPassenger(Passenger passenger) {
         passengers.add(passenger);
     }
