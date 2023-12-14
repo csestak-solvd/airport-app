@@ -1,21 +1,19 @@
 import com.solvd.airport.*;
-import com.solvd.enums.FlightStatus;
-import com.solvd.enums.FlightType;
-import com.solvd.enums.GateStatus;
+import com.solvd.enums.*;
 import com.solvd.exceptions.*;
-import com.solvd.interfaces.SecurityService;
-import com.solvd.enums.SecurityLevel;
+import com.solvd.interfaces.ISecurityService;
 import com.solvd.utils.AirportUtils;
 import com.solvd.people.Employee;
 import com.solvd.people.Passenger;
 import com.solvd.people.Person;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.NoSuchElementException;
-import java.util.Optional;
-import java.util.Scanner;
+import java.util.*;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -46,7 +44,7 @@ public class Main {
         Passenger passengerRyan = new Passenger(LocalDate.of(1991, 2, 4), "Ryan Reynolds", "Male", false, false, true);
         Passenger passengerJake = new Passenger(LocalDate.of(1989, 3, 12), "Jake Gyllenhal", "Male", false, false, true);
 
-        SecurityService<Passenger> passengerSecurityService = passenger -> {
+        ISecurityService<Passenger> passengerSecurityService = passenger -> {
             int age = passenger.calculateAge();
             if (age >=65) {
                 return SecurityLevel.HIGH;
@@ -103,7 +101,7 @@ public class Main {
         Airplane airplane = new Airplane(150, 8810);
         airplane.setFlight(flight);
 
-        Restroom restroom = new Restroom("Male", true, true);
+        Restroom restroom = new Restroom(RestroomType.MALE, true, true);
 
         try {
             restroom.useRestroom();
@@ -127,13 +125,13 @@ public class Main {
         try {
             LOGGER.info("Enter a flight Id");
 
-            Scanner intScanner = new Scanner(System.in);
+            Scanner scanner = new Scanner(System.in);
             // Check if the next token is a valid integer
-            if (intScanner.hasNextInt()) {
-                int targetFlightId = intScanner.nextInt();
+            if (scanner.hasNextInt()) {
+                int targetFlightId = scanner.nextInt();
 
-                // Consume the newline character left in the buffer
-                intScanner.nextLine();
+                // Consume the newline character left
+                scanner.nextLine();
 
                 try {
                     Optional<Flight> optionalFlight = airport.findFlightById(targetFlightId);
@@ -153,7 +151,7 @@ public class Main {
                 }
             } else {
                 // Consume the invalid input
-                intScanner.nextLine();
+                scanner.nextLine();
                 LOGGER.error("Invalid input. Please enter a valid input");
             }
         } catch (NoSuchElementException e) {
@@ -175,6 +173,55 @@ public class Main {
             gate1.performGateOperation();
         } catch (InvalidGateException e) {
             LOGGER.error("Error handling invalid Gate: " + e.getMessage());
+        }
+
+        try {
+            //get the Class object for the Flight class
+            Class<?> flightClass = Class.forName("com.solvd.airport.Flight");
+
+            //get the default constructor of the Flight class
+            Constructor<?> defaultConstructor = flightClass.getDeclaredConstructor();
+
+            //create a new instance of the Flight class using the default constructor
+            Object newFlight = defaultConstructor.newInstance();
+
+            //access and set values for the properties using reflection
+            //method to set departure time
+            Method setDepartureTimeMethod = flightClass.getDeclaredMethod("setDepartureTime", LocalDateTime.class);
+            setDepartureTimeMethod.invoke(newFlight, LocalDateTime.now());
+
+            //method to set arrival time
+            Method setArrivalTimeMethod = flightClass.getDeclaredMethod("setArrivalTime", LocalDateTime.class);
+            setArrivalTimeMethod.invoke(newFlight, LocalDateTime.now().plusHours(3));
+
+            //method to set price
+            Method setPriceMethod = flightClass.getDeclaredMethod("setPrice", int.class);
+            setPriceMethod.invoke(newFlight, 500);
+
+            //method to set FlightType
+            Method setFlightTypeMethod = flightClass.getDeclaredMethod("setFlightType", FlightType.class);
+
+            //get the FlightType enum value
+            Enum<?> flightTypeEnum = Enum.valueOf((Class<Enum>) Class.forName("com.solvd.enums.FlightType"), "DOMESTIC");
+
+            //invoke the setFlightType method on the newFlight object
+            setFlightTypeMethod.invoke(newFlight, flightTypeEnum);
+
+            //method to set FlightStatus
+            Method setFlightStatusMethod = flightClass.getDeclaredMethod("setFlightStatus", FlightStatus.class);
+
+            //get the FlightStatus enum value
+            Enum<?> flightStatusEnum = Enum.valueOf((Class<Enum>) Class.forName("com.solvd.enums.FlightStatus"), "ON_TIME");
+
+            //invoke the setFlightStatus method on the newFlight object
+            setFlightStatusMethod.invoke(newFlight, flightStatusEnum);
+
+            //print the newly created Flight object
+            LOGGER.info("Newly created Flight: " + newFlight);
+
+        } catch (ClassNotFoundException | NoSuchMethodException | InstantiationException |
+                 IllegalAccessException | InvocationTargetException e) {
+            LOGGER.error(e.getMessage());
         }
 
     }

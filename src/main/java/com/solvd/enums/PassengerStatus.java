@@ -5,12 +5,7 @@ public enum PassengerStatus {
     BOARDING("Boarding"),
     IN_FLIGHT("In Flight"),
     ARRIVED("Arrived"),
-    CUSTOM("Custom Status") {
-        @Override
-        public String getDescription() {
-            return "this is custom.";
-        }
-    };
+    CUSTOM("Custom Status");
 
     private final String description;
 
@@ -22,18 +17,10 @@ public enum PassengerStatus {
         return description;
     }
 
-    /*
-     * check if passenger has completed journey.
-     * return true if passenger has arrived, otherwise false.
-     * */
     public boolean hasArrived() {
         return this == ARRIVED;
     }
 
-    /*
-     * get status of passenger
-     * return status rep
-     */
     public String getStatus() {
         switch (this) {
             case CHECKED_IN:
