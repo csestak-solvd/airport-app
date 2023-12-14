@@ -25,18 +25,18 @@ public class FileProcessor {
         }
 
         File inputFile = new File(resource.getFile());
-        System.out.println(inputFile);
         try {
             //read all lines from the input file
             List<String> lines = FileUtils.readLines(inputFile, "UTF-8");
-
+            System.out.println(lines);
             //process the lines to get all words
             String text = String.join(" ", lines); //join lines into a single text
+            System.out.println(text);
             String[] words = StringUtils.split(text, ' '); //split text into an array of words
 
             //calc number of unique words
             int uniqueWordCount = countUniqueWords(words);
-
+            System.out.println(uniqueWordCount);
             //Write the result to the same file
             FileUtils.write(inputFile, "\nnumber of unique words: " + uniqueWordCount, "UTF-8", true);
         } catch (IOException e) {

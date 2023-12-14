@@ -5,10 +5,15 @@
         <Console name="console" target="SYSTEM_OUT">
             <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss} %-5p %c{1}:%L - %m%n" />
         </Console>
+        <!-- File Appender -->
+        <File name="file" fileName="airport.log">
+            <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss} %-5p %c{1}:%L - %m%n" />
+        </File>
     </Appenders>
     <Loggers>
         <Root level="info" additivity="false">
             <AppenderRef ref="console" />
+            <AppenderRef ref="file" /> <!-- Reference the file appender -->
         </Root>
     </Loggers>
 </Configuration>

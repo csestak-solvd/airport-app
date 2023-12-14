@@ -1,13 +1,19 @@
 import com.solvd.airport.*;
+import com.solvd.enums.*;
 import com.solvd.exceptions.*;
+import com.solvd.interfaces.ISecurityService;
 import com.solvd.utils.AirportUtils;
 import com.solvd.people.Employee;
 import com.solvd.people.Passenger;
 import com.solvd.people.Person;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Scanner;
+import java.time.LocalDateTime;
+import java.util.*;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -38,16 +44,40 @@ public class Main {
         Passenger passengerRyan = new Passenger(LocalDate.of(1991, 2, 4), "Ryan Reynolds", "Male", false, false, true);
         Passenger passengerJake = new Passenger(LocalDate.of(1989, 3, 12), "Jake Gyllenhal", "Male", false, false, true);
 
+        ISecurityService<Passenger> passengerSecurityService = passenger -> {
+            int age = passenger.calculateAge();
+            if (age >=65) {
+                return SecurityLevel.HIGH;
+            } else if (age >= 18) {
+                return SecurityLevel.MEDIUM;
+            } else {
+                return SecurityLevel.LOW;
+            }
+        };
+
+        SecurityLevel assignedSecurityLevel = passengerSecurityService.assignSecurityLevel(passengerJake);
+        passengerJake.setSecurityLevel(assignedSecurityLevel);
+        LOGGER.info("Security Level: " + passengerJake.getSecurityLevel());
+
+        Airline airline = new Airline("Spirit");
+
+        // Create Flight instance
+        Flight flight = new Flight(LocalDateTime.of(2023, 12, 1, 8, 0, 0), LocalDateTime.of(2023, 12, 1, 11, 0, 0), 250, FlightType.DOMESTIC);
+        flight.addPassenger(passengerRyan);
+        flight.addPassenger(passengerJake);
+        flight.setAirline(airline);
+        // Set the FlightStatus
+        flight.setFlightStatus(FlightStatus.ON_TIME);
+        // Print the Flight details
+        LOGGER.info(flight);
+
         try {
             //creating luggage below weight 20
             Luggage luggage1 = new Luggage(1, 15);
             Luggage luggage2 = new Luggage(2, 18);
             //creating luggage over 20 weight to throw BagOverweightException
-            Luggage luggage3 = new Luggage(3, 20);
-            //checking weights
-            luggage1.weightCheck();
-            luggage2.weightCheck();
-            luggage3.weightCheck();
+            Luggage luggage3 = new Luggage(3, 25);
+
             //creating passenger to add luggage
             Passenger passengerLug = new Passenger(LocalDate.of(1957, 1, 7), "Geroge Ses", "Male", false, false, false);
             //adding luggage to passengerLug luggage list
@@ -55,34 +85,23 @@ public class Main {
             passengerLug.addLuggage(luggage2);
             passengerLug.addLuggage(luggage3);//this will throw BagOverweightException
             passengerLug.addCarryOnBag(1, 5);
+            flight.addPassenger(passengerLug);
+
+            //check the weight for each luggage in the passengers list
+            for (Luggage luggage : passengerLug.getLuggageList().getAll()) {
+                luggage.weightCheck();
+            }
         } catch (BagOverweightException e) {
             LOGGER.error("Error:" + e.getMessage());
         }
 
-        Airline airline = new Airline("Spirit");
-
-        Flight flight = new Flight("8:00AM", "11:00AM", 250);
-        flight.addPassenger(passengerRyan);
-        flight.addPassenger(passengerJake);
-        flight.setAirline(airline);
-
-        try {
-            Passenger foundPassenger = flight.findPassengerById(1);
-            LOGGER.info("Found: " + foundPassenger);
-            flight.removePassengerById(2);
-            LOGGER.info("Passenger with ID 2 removed");
-
-            LOGGER.debug("Updated Passenger List: " + flight.getPassengers());
-        } catch (PassengerNotFoundException e) {
-            LOGGER.error("Error: " + e.getMessage());
-        }
 
         Employee employee = new Employee(LocalDate.of(1993, 8, 1), "Brailee Ses", "Female", "Ramp Controller", "On Shift");
 
         Airplane airplane = new Airplane(150, 8810);
         airplane.setFlight(flight);
 
-        Restroom restroom = new Restroom("Male", true, true);
+        Restroom restroom = new Restroom(RestroomType.MALE, true, true);
 
         try {
             restroom.useRestroom();
@@ -90,8 +109,8 @@ public class Main {
             LOGGER.error("Error:" + e.getMessage());
         }
 
-        Gate gate = new Gate("A123", "Available", "Regional");
-        Gate gate1 = new Gate("B456", "Boarding", "Domestic");
+        Gate gate = new Gate("A123", GateStatus.AVAILABLE, "Regional");
+        Gate gate1 = new Gate("B456", GateStatus.BOARDING, "Domestic");
         Airport airport = new Airport("Hobby Airport", "Houston", "International");
         airport.addEmployee(employee);
         airport.addAirline(airline);
@@ -102,12 +121,41 @@ public class Main {
         airport.addGate(gate1);
         airport.addFlight(flight);
 
+
         try {
-            //Find a flight by ID
-            Flight foundFlight = airport.findFlightById(1);
-            LOGGER.info("Flight Found: " + foundFlight);
-        } catch (FlightNotFoundException e) {
-            LOGGER.error("Error:" + e.getMessage());
+            LOGGER.info("Enter a flight Id");
+
+            Scanner scanner = new Scanner(System.in);
+            // Check if the next token is a valid integer
+            if (scanner.hasNextInt()) {
+                int targetFlightId = scanner.nextInt();
+
+                // Consume the newline character left
+                scanner.nextLine();
+
+                try {
+                    Optional<Flight> optionalFlight = airport.findFlightById(targetFlightId);
+
+                    optionalFlight.ifPresent(foundFlight -> {
+                        // Flight with the specified ID was found
+                        LOGGER.info("Flight found: " + foundFlight);
+                    });
+
+                    if (optionalFlight.isEmpty()) {
+                        // No flight with the specified ID was found
+                        LOGGER.error("No flight found with ID: " + targetFlightId);
+                    }
+                } catch (FlightNotFoundException e) {
+                    // Handle FlightNotFoundException
+                    LOGGER.error("Error: " + e.getMessage());
+                }
+            } else {
+                // Consume the invalid input
+                scanner.nextLine();
+                LOGGER.error("Invalid input. Please enter a valid input");
+            }
+        } catch (NoSuchElementException e) {
+            LOGGER.error("Error: " + e.getMessage());
         }
 
         String desiredGateType = "Regional";
@@ -125,6 +173,55 @@ public class Main {
             gate1.performGateOperation();
         } catch (InvalidGateException e) {
             LOGGER.error("Error handling invalid Gate: " + e.getMessage());
+        }
+
+        try {
+            //get the Class object for the Flight class
+            Class<?> flightClass = Class.forName("com.solvd.airport.Flight");
+
+            //get the default constructor of the Flight class
+            Constructor<?> defaultConstructor = flightClass.getDeclaredConstructor();
+
+            //create a new instance of the Flight class using the default constructor
+            Object newFlight = defaultConstructor.newInstance();
+
+            //access and set values for the properties using reflection
+            //method to set departure time
+            Method setDepartureTimeMethod = flightClass.getDeclaredMethod("setDepartureTime", LocalDateTime.class);
+            setDepartureTimeMethod.invoke(newFlight, LocalDateTime.now());
+
+            //method to set arrival time
+            Method setArrivalTimeMethod = flightClass.getDeclaredMethod("setArrivalTime", LocalDateTime.class);
+            setArrivalTimeMethod.invoke(newFlight, LocalDateTime.now().plusHours(3));
+
+            //method to set price
+            Method setPriceMethod = flightClass.getDeclaredMethod("setPrice", int.class);
+            setPriceMethod.invoke(newFlight, 500);
+
+            //method to set FlightType
+            Method setFlightTypeMethod = flightClass.getDeclaredMethod("setFlightType", FlightType.class);
+
+            //get the FlightType enum value
+            Enum<?> flightTypeEnum = Enum.valueOf((Class<Enum>) Class.forName("com.solvd.enums.FlightType"), "DOMESTIC");
+
+            //invoke the setFlightType method on the newFlight object
+            setFlightTypeMethod.invoke(newFlight, flightTypeEnum);
+
+            //method to set FlightStatus
+            Method setFlightStatusMethod = flightClass.getDeclaredMethod("setFlightStatus", FlightStatus.class);
+
+            //get the FlightStatus enum value
+            Enum<?> flightStatusEnum = Enum.valueOf((Class<Enum>) Class.forName("com.solvd.enums.FlightStatus"), "ON_TIME");
+
+            //invoke the setFlightStatus method on the newFlight object
+            setFlightStatusMethod.invoke(newFlight, flightStatusEnum);
+
+            //print the newly created Flight object
+            LOGGER.info("Newly created Flight: " + newFlight);
+
+        } catch (ClassNotFoundException | NoSuchMethodException | InstantiationException |
+                 IllegalAccessException | InvocationTargetException e) {
+            LOGGER.error(e.getMessage());
         }
 
     }

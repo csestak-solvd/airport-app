@@ -1,50 +1,79 @@
 package com.solvd.airport;
 
+import com.solvd.enums.FlightStatus;
+import com.solvd.enums.FlightType;
 import com.solvd.exceptions.PassengerNotFoundException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import com.solvd.people.Passenger;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 import java.lang.invoke.MethodHandles;
 import java.util.ArrayList;
+import java.util.Optional;
 
 public class Flight {
 
     private static final Logger LOGGER = LogManager.getLogger(MethodHandles.lookup().lookupClass());
     private static int flightIdCounter = 1;
     private int flightId;
-    private String departureTime;
-    private String arrivalTime;
+    private LocalDateTime departureTime;
+    private LocalDateTime arrivalTime;
     private int price;
     private ArrayList<Passenger> passengers;
     private Airline airline;
+    private FlightStatus flightStatus;
+    private FlightType flightType;
 
-    public Flight(String departureTime, String arrivalTime, int price) {
+    public Flight(LocalDateTime departureTime, LocalDateTime arrivalTime, int price, FlightType flightType) {
         this.departureTime = departureTime;
         this.arrivalTime = arrivalTime;
         this.price = price;
         this.passengers = new ArrayList<>();
+        this.flightType = flightType;
         this.flightId = flightIdCounter++;
+    }
+
+    public Flight() {
+        // Default constructor
     }
 
     public void addPassenger(Passenger passenger) {
         passengers.add(passenger);
     }
 
-    public String getDepartureTime() {
+    public LocalDateTime getDepartureTime() {
         return departureTime;
     }
 
-    public void setDepartureTime(String departureTime) {
+    public void setDepartureTime(LocalDateTime departureTime) {
         this.departureTime = departureTime;
     }
 
-    public String getArrivalTime() {
+    public LocalDateTime getArrivalTime() {
         return arrivalTime;
     }
 
-    public void setArrivalTime(String arrivalTime) {
+    public FlightType getFlightType() {
+        return flightType;
+    }
+
+    public void setFlightType(FlightType flightType) {
+        this.flightType = flightType;
+    }
+
+    public void setArrivalTime(LocalDateTime arrivalTime) {
         this.arrivalTime = arrivalTime;
+    }
+
+    public FlightStatus getFlightStatus() {
+        return flightStatus;
+    }
+
+    public void setFlightStatus(FlightStatus flightStatus) {
+        this.flightStatus = flightStatus;
     }
 
     public int getPrice() {
@@ -77,13 +106,13 @@ public class Flight {
 
     //finding passenger from the arraylist with unique id. if found returns it. if not throws
     public Passenger findPassengerById(int passengerId) throws PassengerNotFoundException {
-        for (Passenger passenger : passengers) {
-            if (passenger.getPassengerId() == passengerId) {
-                return passenger;
-            }
-        }
+        Optional<Passenger> passengerOptional = passengers.stream()
+                .filter(passenger -> passenger.getPassengerId() == passengerId)
+                .findFirst();
 
-        throw new PassengerNotFoundException("Passenger with the ID: " + passengerId + " not found.");
+        return passengerOptional.orElseThrow(() ->
+                new PassengerNotFoundException("Passenger with the ID: " + passengerId + " not found.")
+        );
     }
 
     public void removePassengerById(int passengerId) {
@@ -97,8 +126,37 @@ public class Flight {
         }
     }
 
+    public void displayStatusMessage() {
+        switch (flightStatus) {
+            case ON_TIME:
+                LOGGER.info("The flight is on time.");
+                break;
+            case DELAYED:
+                LOGGER.info("The flight is delayed.");
+                break;
+            case BOARDING:
+                LOGGER.info("Boarding is in progress.");
+                break;
+            case IN_FLIGHT:
+                LOGGER.info("The flight is currently in progress.");
+                break;
+            case LANDED:
+                LOGGER.info("The flight has arrived.");
+                break;
+            case CANCELLED:
+                LOGGER.info("The flight has been canceled.");
+                break;
+            default:
+                LOGGER.info("Unknown flight status.");
+        }
+    }
+
     @Override
     public String toString() {
-        return "Flight departure time: " + departureTime + ", arrivale time: " + arrivalTime + ", price: " + price + ", flight ID: " + flightId + ", Passenger List: " + passengers;
+        //format LocalDatetime using DateTimeFormatter
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        String formattedDepartureTime = departureTime.format(formatter);
+        String formattedArrivalTime = arrivalTime.format(formatter);
+        return "Flight departure time: " + formattedDepartureTime + ", arrival time: " + formattedArrivalTime + ", price: " + price + ", flight ID: " + flightId + ", Passenger List: " + passengers;
     }
 }

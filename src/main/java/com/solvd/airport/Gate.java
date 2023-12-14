@@ -1,14 +1,15 @@
 package com.solvd.airport;
 
+import com.solvd.enums.GateStatus;
 import com.solvd.exceptions.InvalidGateException;
 
 public class Gate {
 
     private String gateNumber;
-    private String gateStatus;
+    private GateStatus gateStatus;
     private String gateType;
 
-    public Gate(String gateNumber, String gateStatus, String gateType) {
+    public Gate(String gateNumber, GateStatus gateStatus, String gateType) {
         this.gateNumber = gateNumber;
         this.gateStatus = gateStatus;
         this.gateType = gateType;
@@ -18,7 +19,7 @@ public class Gate {
         return gateNumber;
     }
 
-    public String getGateStatus() {
+    public GateStatus getGateStatus() {
         return gateStatus;
     }
 
@@ -30,7 +31,7 @@ public class Gate {
         this.gateNumber = gateNumber;
     }
 
-    public void setGateStatus(String gateStatus) {
+    public void setGateStatus(GateStatus gateStatus) {
         this.gateStatus = gateStatus;
     }
 

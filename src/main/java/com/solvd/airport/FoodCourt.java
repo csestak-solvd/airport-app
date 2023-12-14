@@ -51,7 +51,6 @@ public class FoodCourt implements IFacility {
             throw new InvalidFoodItemException("Invalid food Item: " + foodItem);
         }
         LOGGER.info("Food Ordered: " + foodItem);
-
     }
 
     private boolean isValidFoodItem(String foodItem) {

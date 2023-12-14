@@ -1,19 +1,28 @@
 package com.solvd.people;
 
+import com.solvd.enums.PassengerStatus;
+import com.solvd.enums.SecurityLevel;
 import com.solvd.linkedlist.CustomLinkedList;
 import com.solvd.airport.CarryOnBag;
 import com.solvd.airport.Luggage;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
+import java.lang.invoke.MethodHandles;
 import java.time.LocalDate;
+import java.time.Period;
 
 public class Passenger extends Person {
 
+    private static final Logger LOGGER = LogManager.getLogger(MethodHandles.lookup().lookupClass());
     private static int passengerIdCounter = 1;
     private int passengerId;
     private boolean assistance;
     private boolean guardian;
     private boolean security;
     private CustomLinkedList<Luggage> luggageList;
+    private PassengerStatus passengerStatus;
+    private SecurityLevel securityLevel;
 
     public Passenger(LocalDate bday, String name, String sex, boolean assistance, boolean guardian, boolean security) {
         super(bday, name, sex);
@@ -22,6 +31,10 @@ public class Passenger extends Person {
         this.guardian = guardian;
         this.security = security;
         this.luggageList = new CustomLinkedList<>();
+    }
+
+    public PassengerStatus getPassengerStatus() {
+        return passengerStatus;
     }
 
     public boolean isAssistanceNeeded() {
@@ -61,12 +74,34 @@ public class Passenger extends Person {
         this.assistance = assistance;
     }
 
+    public void setPassengerStatus(PassengerStatus passengerStatus) {
+        this.passengerStatus = passengerStatus;
+    }
+
+    public SecurityLevel getSecurityLevel() {
+        return securityLevel;
+    }
+
+    public void setSecurityLevel(SecurityLevel securityLevel) {
+        this.securityLevel = securityLevel;
+    }
+
     public void setGuardian(boolean guardian) {
         this.guardian = guardian;
     }
 
     public void setSecurity(boolean security) {
         this.security = security;
+    }
+
+    public int calculateAge() {
+        LocalDate currentDate = LocalDate.now();
+        Period period = Period.between(getBday(), currentDate);
+        return period.getYears();
+    }
+
+    public boolean isVIP() {
+        return calculateAge() >= 65;
     }
 
     @Override
@@ -87,6 +122,7 @@ public class Passenger extends Person {
                 ", Guardian: " + guardian +
                 ", Security: " + security +
                 ", Passenger ID: " + passengerId +
+                ", Status: " + (passengerStatus != null ? passengerStatus.getStatus() : "N/A") +
                 ", " + luggageDetails.toString();
     }
 }

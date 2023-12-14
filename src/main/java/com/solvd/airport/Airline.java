@@ -12,7 +12,6 @@ public class Airline {
         return this.companyName;
     }
 
-
     public void setCompanyName(String company) {
         this.companyName = company;
     }
